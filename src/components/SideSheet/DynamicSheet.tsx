@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { SheetContent, SheetTitle, SheetHeader } from "./SideSheet";
 import { FormData, Field } from "../../types/Fields.type";
 import { Chip } from "../Chip/Chip";

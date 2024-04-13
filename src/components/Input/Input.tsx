@@ -7,25 +7,22 @@ export interface InputProps
   required?: boolean;
   value?: string;
   onChange: any;
-  variant: any;
+  variant?: any;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      className,
-      type,
-      label,
-      name,
-      value,
-      onChange,
-      required,
-      variant,
-      ...props
-    },
-    ref
-  ) => {
-    const handleChange = (e) => {
+  ({
+    className,
+    type,
+    label,
+    name,
+    value,
+    onChange,
+    required,
+    variant,
+    ...props
+  }) => {
+    const handleChange = (e: any) => {
       const newValue = e.target.value;
       onChange(name, newValue); // Pass the updated value to the parent component
     };

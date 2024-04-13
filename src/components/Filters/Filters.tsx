@@ -8,7 +8,7 @@ export const Filters = () => {
     phoneNumber: "",
   });
 
-  const handleInput = (key, value) => {
+  const handleInput = (key: any, value: any) => {
     setFilterInput((prevFilterInput) => ({
       ...prevFilterInput,
       [key]: value,

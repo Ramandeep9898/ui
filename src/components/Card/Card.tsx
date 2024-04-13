@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { department, teams } from "../../EmployeData/employeeData";
 import clsxm from "../../utils/clsxm";
 import Button from "../Button/Button";

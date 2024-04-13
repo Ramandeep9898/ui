@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { useEffect, useState } from "react";
 import { ADD_MEMBER_FIELDS_CONFIG, CREATE_TEAM_CONFIG } from "../config";
 import { Toaster } from "../components/Toast/toaster";

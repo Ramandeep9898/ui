@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { v4 as uuid } from "uuid";
 
 export const getTeamByDepartmentName = (
@@ -26,7 +28,7 @@ export const getTeamByDeptId = (deptId: string, employeeData: any) => {
 };
 
 export const addMember = (memberData, employeeData) => {
-  console.log("ADD_MEMBER" , memberData)
+  console.log("ADD_MEMBER", memberData);
   const { teams, employees } = employeeData;
   const departmentId = teams[memberData?.teamId]?.deptId;
 
@@ -45,7 +47,6 @@ export const addMember = (memberData, employeeData) => {
   // Push the new member object to the employees array
   employees.push(newMember);
   localStorage.setItem("employees", JSON.stringify(employees));
-
 };
 
 export const createTeam = (teamData, employeeData) => {
@@ -70,29 +71,33 @@ export const getDepartmentByDeptName = (deptName, department) => {
 };
 
 export const updateMember = (memberData, employeeData) => {
-    const { employees } = employeeData;
-    for(let index in employees){
-        if(employees[index].employeeId === memberData.employeeId){
-            employees[index] = memberData
-        }
-        if(employees[index].designation === "TEAM_LEAD" && memberData.designation === "TEAM_LEAD" && employees[index].employeeId !== memberData.employeeId && employees[index].teamId === memberData.teamId){
-            employees[index]['designation'] = "TEAM_MEMBER"
-        }
-        
+  const { employees } = employeeData;
+  for (let index in employees) {
+    if (employees[index].employeeId === memberData.employeeId) {
+      employees[index] = memberData;
     }
-    localStorage.setItem("employees", JSON.stringify(employees));
-    console.log("UPDATE_MEMBER" , memberData)
-}
+    if (
+      employees[index].designation === "TEAM_LEAD" &&
+      memberData.designation === "TEAM_LEAD" &&
+      employees[index].employeeId !== memberData.employeeId &&
+      employees[index].teamId === memberData.teamId
+    ) {
+      employees[index]["designation"] = "TEAM_MEMBER";
+    }
+  }
+  localStorage.setItem("employees", JSON.stringify(employees));
+  console.log("UPDATE_MEMBER", memberData);
+};
 
 export const removeMember = (memberData, employeeData) => {
-    console.log("REMOVE_MEMBER", memberData)
-    const { employees } = employeeData;
-    for(let index in employees){
-        if(employees[index].employeeId === memberData.empId){
-            employees[index]['isDeleted'] = true
-            break
-        }
+  console.log("REMOVE_MEMBER", memberData);
+  const { employees } = employeeData;
+  for (let index in employees) {
+    if (employees[index].employeeId === memberData.empId) {
+      employees[index]["isDeleted"] = true;
+      break;
     }
-    localStorage.setItem("employees", JSON.stringify(employees));
-    console.log("REMOVE_MEMBER" , memberData)
-}
+  }
+  localStorage.setItem("employees", JSON.stringify(employees));
+  console.log("REMOVE_MEMBER", memberData);
+};

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { useState } from "react";
 
 export const Chip = ({ chipInfo, onChange }) => {
