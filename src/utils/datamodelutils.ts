@@ -32,6 +32,10 @@ export const addMember = (memberData, employeeData) => {
   const { teams, employees } = employeeData;
   const departmentId = teams[memberData?.teamId]?.deptId;
 
+  if(! memberData.teamId) {
+    return
+  }
+
   // Construct the new member object with all required properties
   const newMember = {
     employeeId: uuid(),
@@ -72,7 +76,10 @@ export const getDepartmentByDeptName = (deptName, department) => {
 
 export const updateMember = (memberData, employeeData) => {
   const { employees, teams } = employeeData;
-  memberData["teamId"] = getTeamIdByTeamName(memberData.teamName, teams) || memberData.teamId
+  console.log("UPDATED-TEAM", memberData.undefined)
+  const updatedTeam = memberData.undefined || memberData.teamName 
+  memberData["teamId"] = getTeamIdByTeamName(updatedTeam, teams) || memberData.teamId
+  memberData["teamName"] = updatedTeam
   for (let index in employees) {
     if (employees[index].employeeId === memberData.employeeId) {
       employees[index] = memberData;

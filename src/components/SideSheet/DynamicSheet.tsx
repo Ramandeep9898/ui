@@ -54,6 +54,7 @@ export const DynamicSheet = ({
           onSelect={handleInput}
           dept={department}
           team={formData["teamName"]}
+          flag={flag}
         />
       ),
       input: (
