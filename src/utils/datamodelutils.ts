@@ -71,7 +71,8 @@ export const getDepartmentByDeptName = (deptName, department) => {
 };
 
 export const updateMember = (memberData, employeeData) => {
-  const { employees } = employeeData;
+  const { employees, teams } = employeeData;
+  memberData["teamId"] = getTeamIdByTeamName(memberData.teamName, teams) || memberData.teamId
   for (let index in employees) {
     if (employees[index].employeeId === memberData.employeeId) {
       employees[index] = memberData;
@@ -101,3 +102,12 @@ export const removeMember = (memberData, employeeData) => {
   localStorage.setItem("employees", JSON.stringify(employees));
   console.log("REMOVE_MEMBER", memberData);
 };
+
+export const getTeamIdByTeamName = (teamName: string, teams: any) => {
+  for (let key of Object.keys(teams)) {
+    let data = teams[key];
+    if (teamName === data.teamName) {
+      return key
+    }
+  }
+}

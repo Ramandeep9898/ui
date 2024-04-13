@@ -20,12 +20,14 @@ export const Dropdown = ({
   onSelect,
   name,
   dept,
+  team
 }: {
   label: string;
   initialDropdownValue: string;
   onSelect: any;
   name: string;
   dept?: string;
+  team?: string
 }) => {
   const [selectedValue, setSelectedValue] = useState(initialDropdownValue);
   const [selectedTeamId, setSelectedTeamId] = useState(""); // State to store the selected teamId
@@ -53,20 +55,20 @@ export const Dropdown = ({
     setSelectedValue(teamName);
     onSelect(name, teamName, teamId);
   };
-
+  const selectedValueData = team || teamData[0]?.teamName
   return (
     <DropdownMenu>
       <div className="flex flex-col items-start w-full">
         <div className="text-gray-500 text-sm mb-1">{label}</div>
         <DropdownMenuTrigger className="border-[#333] w-full border-2 border-b-4 px-6 py-2 rounded-lg">
-          {selectedValue}
+         {selectedValue === "Choose a Team" ? selectedValueData: selectedValue}
         </DropdownMenuTrigger>
       </div>
 
       <DropdownMenuContent className="w-[330px] border-[#333] border-2 border-b-4 bg-white">
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
-          value={selectedValue}
+          value={selectedValue === "Choose a Team" ? selectedValueData: selectedValue}
           onValueChange={(value) => {
             handleSelect(value); // Pass teamName and teamId to handleSelect
           }}
