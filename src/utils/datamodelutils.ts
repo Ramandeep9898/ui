@@ -32,7 +32,7 @@ export const addMember = (memberData, employeeData) => {
   const { teams, employees } = employeeData;
   const departmentId = teams[memberData?.teamId]?.deptId;
 
-  if(! memberData.teamId) {
+  if(! memberData.teamId || !departmentId) {
     return
   }
 
