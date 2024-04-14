@@ -31,6 +31,11 @@ export const addMember = (memberData, employeeData) => {
   console.log("ADD_MEMBER", memberData);
   const { teams, employees } = employeeData;
   const departmentId = teams[memberData?.teamId]?.deptId;
+  console.log("ADD_MEMBER_DEPT_ID" , departmentId)
+
+  if(!departmentId) {
+    return
+  }
 
   // Construct the new member object with all required properties
   const newMember = {
@@ -71,7 +76,11 @@ export const getDepartmentByDeptName = (deptName, department) => {
 };
 
 export const updateMember = (memberData, employeeData) => {
-  const { employees } = employeeData;
+  const { employees, teams } = employeeData;
+  console.log("UPDATED-TEAM", memberData.undefined)
+  const updatedTeam = memberData.undefined || memberData.teamName 
+  memberData["teamId"] = getTeamIdByTeamName(updatedTeam, teams) || memberData.teamId
+  memberData["teamName"] = updatedTeam
   for (let index in employees) {
     if (employees[index].employeeId === memberData.employeeId) {
       employees[index] = memberData;
@@ -101,3 +110,12 @@ export const removeMember = (memberData, employeeData) => {
   localStorage.setItem("employees", JSON.stringify(employees));
   console.log("REMOVE_MEMBER", memberData);
 };
+
+export const getTeamIdByTeamName = (teamName: string, teams: any) => {
+  for (let key of Object.keys(teams)) {
+    let data = teams[key];
+    if (teamName === data.teamName) {
+      return key
+    }
+  }
+}
