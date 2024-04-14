@@ -71,7 +71,7 @@ export const Dropdown = ({
       <DropdownMenuContent className="w-[330px] border-[#333] border-2 border-b-4 bg-white">
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
-          value={selectedValue}
+          value={selectedValue === "Choose a Team" ? selectedValueData: selectedValue}
           onValueChange={(value) => {
             handleSelect(value); // Pass teamName and teamId to handleSelect
           }}

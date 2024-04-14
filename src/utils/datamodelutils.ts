@@ -31,8 +31,9 @@ export const addMember = (memberData, employeeData) => {
   console.log("ADD_MEMBER", memberData);
   const { teams, employees } = employeeData;
   const departmentId = teams[memberData?.teamId]?.deptId;
+  console.log("ADD_MEMBER_DEPT_ID" , departmentId)
 
-  if(! memberData.teamId || !departmentId) {
+  if(!departmentId) {
     return
   }
 
