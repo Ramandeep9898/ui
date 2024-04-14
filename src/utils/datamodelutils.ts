@@ -113,3 +113,43 @@ export const getTeamIdByTeamName = (teamName: string, teams: any) => {
     }
   }
 };
+
+export const filterEmployees = (
+  filter: { name?: string; email?: string; phoneNumber?: string },
+  dataObject: any
+) => {
+  const filteredEmployees: { [deptName: string]: any[] } = {};
+
+  dataObject.employees.forEach((employee: any) => {
+    if (
+      (!filter.name ||
+        employee.name.toLowerCase().includes(filter.name.toLowerCase())) &&
+      (!filter.email ||
+        employee.email.toLowerCase().includes(filter.email.toLowerCase())) &&
+      (!filter.phoneNumber || employee.phoneNumber.includes(filter.phoneNumber))
+    ) {
+      const deptName = dataObject.department[employee.deptId].deptName;
+
+      if (!filteredEmployees[deptName]) {
+        filteredEmployees[deptName] = [];
+      }
+
+      filteredEmployees[deptName].push({
+        employeeId: employee.employeeId,
+        name: employee.name,
+        email: employee.email,
+        phoneNumber: employee.phoneNumber,
+        designation: employee.designation,
+        teamId: employee.teamId,
+        teamName: employee.teamId
+          ? dataObject.teams[employee.teamId].teamName
+          : "",
+        deptId: employee.deptId,
+        deptName: deptName,
+        isDeleted: employee.isDeleted,
+      });
+    }
+  });
+
+  return filteredEmployees;
+};

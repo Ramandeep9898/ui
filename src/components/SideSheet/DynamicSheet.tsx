@@ -7,6 +7,8 @@ import { Input } from "../Input/Input";
 import { Dropdown } from "../DropDown/DropDown";
 import { v4 as uuid } from "uuid";
 import { useEmployeeData } from "../../hooks/employeeDataContext";
+import { useToast } from "../Toast/use-toast";
+import { Toaster } from "../Toast/toaster";
 
 import { useState } from "react";
 
@@ -25,6 +27,8 @@ export const DynamicSheet = ({
   onSubmit,
   flag,
 }: SheetPropsTypes) => {
+  const { toast } = useToast();
+
   const { dispatch } = useEmployeeData();
 
   const [formData, setFormData] = useState<FormData>(initialState);
@@ -72,31 +76,51 @@ export const DynamicSheet = ({
   };
 
   const submitHandler = () => {
-    if (flag === "edit") {
-      dispatch({ ...formData, type: "EDIT_MEMBER" });
+    // console.log(formData);
+
+    if (
+      formData.name === "" ||
+      formData.phoneNumber === "" ||
+      formData.email === "" ||
+      formData.designation === "" ||
+      formData.teamId === ""
+    ) {
+      console.log(formData);
+
+      toast({
+        title: "All fields are required.",
+      });
     } else {
-      onSubmit({ formData });
+      if (flag === "edit") {
+        dispatch({ ...formData, type: "EDIT_MEMBER" });
+      } else {
+        onSubmit({ formData });
+        setFormData(initialState);
+      }
     }
   };
 
   return (
-    <SheetContent className="bg-white w-[400px] sm:w-[540px]">
-      <SheetHeader>
-        <SheetTitle>Add new Member to {department}</SheetTitle>
-        <div className="flex flex-col gap-8">
-          {config.map((field: any) => (
-            <div className="" key={field.name}>
-              {DynamicComponentReturn({ field })}
-            </div>
-          ))}
-        </div>
-      </SheetHeader>
-      <button
-        className="w-full mt-6 bg-[#333] rounded-lg p-2 text-white"
-        onClick={submitHandler}
-      >
-        Add
-      </button>
-    </SheetContent>
+    <>
+      <SheetContent className="bg-white w-[400px] sm:w-[540px]">
+        <SheetHeader>
+          <SheetTitle>Add new Member to {department}</SheetTitle>
+          <div className="flex flex-col gap-8">
+            {config.map((field: any) => (
+              <div className="" key={field.name}>
+                {DynamicComponentReturn({ field })}
+              </div>
+            ))}
+          </div>
+        </SheetHeader>
+        <button
+          className="w-full mt-6 bg-[#333] rounded-lg p-2 text-white"
+          onClick={submitHandler}
+        >
+          Add
+        </button>
+      </SheetContent>
+      <Toaster />
+    </>
   );
 };

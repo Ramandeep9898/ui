@@ -1,5 +1,7 @@
+import { useEmployeeData } from "../../hooks/employeeDataContext";
 import { Input } from "../Input/Input";
 import { useState } from "react";
+import { filterEmployees } from "../../utils/datamodelutils";
 
 export const Filters = () => {
   const [filterInput, setFilterInput] = useState({
@@ -14,7 +16,11 @@ export const Filters = () => {
       [key]: value,
     }));
   };
-
+  const { employeeData, dispatch } = useEmployeeData();
+  const filterResponse = filterEmployees(filterInput, employeeData);
+  console.log(employeeData);
+  console.log(filterInput);
+  console.log("FILTER_RESPONSE", filterResponse);
   return (
     <div className="flex gap-6 border-[#333] my-4 border-2 rounded-md px-5 py-4">
       <Input

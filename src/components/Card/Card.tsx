@@ -11,7 +11,7 @@ import { useEmployeeData } from "../../hooks/employeeDataContext";
 export const Card = ({ info }) => {
   const { employeeData, dispatch } = useEmployeeData();
 
-  // handle remove empolyee
+  // handle remove employee
   const removeHandler = () => {
     dispatch({ empId: info.employeeId, type: "REMOVE_MEMBER" });
   };
