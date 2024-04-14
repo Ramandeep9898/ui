@@ -16,7 +16,6 @@ export const Filters = () => {
   };
 
   // console.log(filterInput)
-  //
   return (
     <div className="flex gap-6 border-[#333] my-4 border-2 rounded-md px-5 py-4">
       <Input
