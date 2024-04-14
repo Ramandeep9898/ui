@@ -153,3 +153,31 @@ export const filterEmployees = (
 
   return filteredEmployees;
 };
+
+
+export const getEmployeesByTeamId = (data: any, teamId: string): any[] => {
+  const employees: any[] = [];
+  const team = data.teams[teamId];
+  const deptId = team.deptId;
+  const teamName = team.teamName;
+  const deptName = data.department[deptId].deptName;
+
+  for (const employee of data.employees) {
+      if (employee.teamId === teamId) {
+          employees.push({
+              "employeeId": employee.employeeId,
+              "name": employee.name,
+              "email": employee.email,
+              "phoneNumber": employee.phoneNumber,
+              "designation": employee.designation,
+              "teamId": employee.teamId,
+              "teamName": teamName,
+              "deptId": employee.deptId,
+              "deptName": deptName,
+              "isDeleted": employee.isDeleted
+          });
+      }
+  }
+
+  return employees;
+}

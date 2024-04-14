@@ -7,6 +7,7 @@ import { Sheet, SheetTrigger } from "../SideSheet/SideSheet";
 import { DynamicSheet } from "../SideSheet/DynamicSheet";
 import { ADD_MEMBER_FIELDS_CONFIG } from "../../config";
 import { useEmployeeData } from "../../hooks/employeeDataContext";
+import { getEmployeesByTeamId } from "../../utils/datamodelutils";
 
 export const Card = ({ info }) => {
   const { employeeData, dispatch } = useEmployeeData();
@@ -18,6 +19,8 @@ export const Card = ({ info }) => {
 
   const handleViewTeam = () => {
     console.log(info.teamId);
+    const teamResponse = getEmployeesByTeamId(employeeData , info.teamId)
+    console.log("TEAM_RESPONSE", teamResponse);
   };
 
   return (
