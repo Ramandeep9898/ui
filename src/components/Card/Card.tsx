@@ -13,8 +13,11 @@ export const Card = ({ info }) => {
 
   // handle remove empolyee
   const removeHandler = () => {
-    console.log(info.employeeId);
     dispatch({ empId: info.employeeId, type: "REMOVE_MEMBER" });
+  };
+
+  const handleViewTeam = () => {
+    console.log(info.teamId);
   };
 
   return (
@@ -72,7 +75,7 @@ export const Card = ({ info }) => {
             </>
           )}
           {info.designation === "TEAM_LEAD" && (
-            <Button variant="primary" className="">
+            <Button variant="primary" className="" onClick={handleViewTeam}>
               View team
             </Button>
           )}

@@ -41,7 +41,6 @@ export const DynamicSheet = ({
     }
   };
 
-  // this component dynamically return components acc to config
   const DynamicComponentReturn: React.FC<{ field: Field }> = ({ field }) => {
     const componentOption: { [key: string]: JSX.Element } = {
       chip: <Chip chipInfo={field} onChange={handleInput} />,
@@ -74,7 +73,6 @@ export const DynamicSheet = ({
 
   const submitHandler = () => {
     if (flag === "edit") {
-      // call dispatch
       dispatch({ ...formData, type: "EDIT_MEMBER" });
     } else {
       onSubmit({ formData });

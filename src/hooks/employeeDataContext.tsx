@@ -35,7 +35,6 @@ const employeeReducerFunc = (state, action) => {
         ...state,
         employees: [...state.employees],
       };
-      console.log("UFD", action);
 
       updateMember(action, updatedStateMember);
       return updatedStateMember;
