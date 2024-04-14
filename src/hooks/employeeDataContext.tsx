@@ -17,41 +17,37 @@ const employeeReducerFunc = (state, action) => {
         [action.field]: action.value,
       };
     case "ADD_MEMBER":
-      // Call addMember function with proper arguments
       const updatedState = {
         ...state,
-        employees: [...state.employees], // Make a copy of the employees array
+        employees: [...state.employees],
       };
-      addMember(action.formData, updatedState); // Pass memberData and updatedState
-      return updatedState; // Return the updated state
+      addMember(action.formData, updatedState);
+      return updatedState;
     case "CREATE_TEAM":
-      // Call addMember function with proper arguments
       const updatedStateTeam = {
         ...state,
-        teams: state.teams, // Make a copy of the employees array
+        teams: state.teams,
       };
-      createTeam(action.formData, updatedStateTeam); // Pass memberData and updatedState
-      return updatedStateTeam; // Return the updated state
+      createTeam(action.formData, updatedStateTeam);
+      return updatedStateTeam;
     case "EDIT_MEMBER":
-      // Call addMember function with proper arguments
       const updatedStateMember = {
         ...state,
-        employees: [...state.employees], // Make a copy of the employees array
+        employees: [...state.employees],
       };
       console.log("UFD", action);
 
-      updateMember(action, updatedStateMember); // Pass memberData and updatedState
-      return updatedStateMember; // Return the updated state
+      updateMember(action, updatedStateMember);
+      return updatedStateMember;
 
     case "REMOVE_MEMBER":
-      // Call addMember function with proper arguments
       const updatedStateMemberRemove = {
         ...state,
-        employees: [...state.employees], // Make a copy of the employees array
+        employees: [...state.employees],
       };
 
-      removeMember(action, updatedStateMemberRemove); // Pass memberData and updatedState
-      return updatedStateMemberRemove; // Return the updated state
+      removeMember(action, updatedStateMemberRemove);
+      return updatedStateMemberRemove;
 
     default:
       return state;
