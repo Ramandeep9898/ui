@@ -28,7 +28,7 @@ export const Card = ({ info, flag }) => {
   return (
     <div
       className={clsxm(
-        "border-[#333] border-2  border-b-4 rounded-xl px-6 py-3 w-[370px] h-[200px] flex flex-col justify-between",
+        "border-[#333] border-2  border-b-4 rounded-xl px-6 py-3 w-[370px] h-[220px] flex flex-col justify-between",
         info.designation === "HOD" && "bg-[#fec7de]",
         info.designation === "TEAM_LEAD" && "bg-[#ffd464]",
         info.designation === "CEO" && "bg-[#f85a2b]"
@@ -43,24 +43,22 @@ export const Card = ({ info, flag }) => {
             </h2>
           </div>
 
-          {flag !== "viewTeam" && (
-            <Sheet>
-              <SheetTrigger>
-                <Button
-                  variant="outline"
-                  className="border-[#333] border-2 px-2 py-1 rounded"
-                >
-                  edit
-                </Button>
-              </SheetTrigger>
-              <DynamicSheet
-                department={info.departmentName}
-                flag="edit"
-                config={ADD_MEMBER_FIELDS_CONFIG}
-                initialState={info}
-              />
-            </Sheet>
-          )}
+          <Sheet>
+            <SheetTrigger>
+              <Button
+                variant="outline"
+                className="border-[#333] border-2 px-2 py-1 rounded"
+              >
+                edit
+              </Button>
+            </SheetTrigger>
+            <DynamicSheet
+              department={info.departmentName}
+              flag="edit"
+              config={ADD_MEMBER_FIELDS_CONFIG}
+              initialState={info}
+            />
+          </Sheet>
         </div>
 
         <div className="flex gap-2 flex-wrap mt-2">

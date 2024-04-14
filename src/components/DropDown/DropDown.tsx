@@ -40,8 +40,6 @@ export const Dropdown = ({
     const { department } = employeeData;
 
     if (initialDropdownValue === "Choose a Team") {
-      // Create an array of all the teams in this department {department}
-
       setTeamData(getTeamByDepartmentName(dept as string, employeeData));
     }
   }, [employeeData]);
