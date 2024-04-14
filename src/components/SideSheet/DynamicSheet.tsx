@@ -73,14 +73,12 @@ export const DynamicSheet = ({
   };
 
   const submitHandler = () => {
-    if (formData) {
+    if (flag === "edit") {
+      // call dispatch
+      dispatch({ ...formData, type: "EDIT_MEMBER" });
+    } else {
+      onSubmit({ formData });
     }
-    // if (flag === "edit") {
-    //   // call dispatch
-    //   dispatch({ ...formData, type: "EDIT_MEMBER" });
-    // } else {
-    //   onSubmit({ formData });
-    // }
   };
 
   return (
