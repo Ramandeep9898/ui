@@ -1,28 +1,17 @@
-import { useEmployeeData } from "../../hooks/employeeDataContext";
 import { Input } from "../Input/Input";
-import { useState } from "react";
-import { filterEmployees } from "../../utils/datamodelutils";
+import Button from "../Button/Button";
 
-export const Filters = () => {
-  const [filterInput, setFilterInput] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
-  });
-
+export const Filters = ({
+  filterInput,
+  handleFilterInput,
+  clearFilter,
+}: any) => {
   const handleInput = (key: any, value: any) => {
-    setFilterInput((prevFilterInput) => ({
-      ...prevFilterInput,
-      [key]: value,
-    }));
+    handleFilterInput(key, value);
   };
-  const { employeeData, dispatch } = useEmployeeData();
-  const filterResponse = filterEmployees(filterInput, employeeData);
-  console.log(employeeData);
-  console.log(filterInput);
-  console.log("FILTER_RESPONSE", filterResponse);
+
   return (
-    <div className="flex gap-6 border-[#333] my-4 border-2 rounded-md px-5 py-4">
+    <div className="flex gap-6 border-[#333] my-4 border-2 rounded-md px-5 py-4 items-center">
       <Input
         variant="outline"
         label="Email"
@@ -46,6 +35,9 @@ export const Filters = () => {
         onChange={handleInput}
         value={filterInput.phoneNumber}
       />
+      <Button onClick={clearFilter} variant="primary">
+        Clear all
+      </Button>
     </div>
   );
 };

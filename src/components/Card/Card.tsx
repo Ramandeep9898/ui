@@ -8,9 +8,12 @@ import { DynamicSheet } from "../SideSheet/DynamicSheet";
 import { ADD_MEMBER_FIELDS_CONFIG } from "../../config";
 import { useEmployeeData } from "../../hooks/employeeDataContext";
 import { getEmployeesByTeamId } from "../../utils/datamodelutils";
+import { ViewTeamSheet } from "../SideSheet/ViewTeamSheet";
+import { useState } from "react";
 
-export const Card = ({ info }) => {
+export const Card = ({ info, flag }) => {
   const { employeeData, dispatch } = useEmployeeData();
+  const [teamMember, setTeamMember] = useState([]);
 
   // handle remove employee
   const removeHandler = () => {
@@ -18,15 +21,14 @@ export const Card = ({ info }) => {
   };
 
   const handleViewTeam = () => {
-    console.log(info.teamId);
-    const teamResponse = getEmployeesByTeamId(employeeData , info.teamId)
-    console.log("TEAM_RESPONSE", teamResponse);
+    const teamResponse = getEmployeesByTeamId(employeeData, info.teamId);
+    setTeamMember(teamResponse);
   };
 
   return (
     <div
       className={clsxm(
-        "border-[#333] border-2  border-b-4 rounded-xl px-6 py-3 w-[370px] h-[300px] flex flex-col justify-between",
+        "border-[#333] border-2  border-b-4 rounded-xl px-6 py-3 w-[370px] h-[200px] flex flex-col justify-between",
         info.designation === "HOD" && "bg-[#fec7de]",
         info.designation === "TEAM_LEAD" && "bg-[#ffd464]",
         info.designation === "CEO" && "bg-[#f85a2b]"
@@ -41,23 +43,24 @@ export const Card = ({ info }) => {
             </h2>
           </div>
 
-          <Sheet>
-            <SheetTrigger>
-              <Button
-                variant="outline"
-                className="border-[#333] border-2 px-2 py-1 rounded"
-              >
-                edit
-              </Button>
-            </SheetTrigger>
-            <DynamicSheet
-              department={info.departmentName}
-              flag="edit"
-              config={ADD_MEMBER_FIELDS_CONFIG}
-              initialState={info}
-              onSubmit={() => "fghj"}
-            />
-          </Sheet>
+          {flag !== "viewTeam" && (
+            <Sheet>
+              <SheetTrigger>
+                <Button
+                  variant="outline"
+                  className="border-[#333] border-2 px-2 py-1 rounded"
+                >
+                  edit
+                </Button>
+              </SheetTrigger>
+              <DynamicSheet
+                department={info.departmentName}
+                flag="edit"
+                config={ADD_MEMBER_FIELDS_CONFIG}
+                initialState={info}
+              />
+            </Sheet>
+          )}
         </div>
 
         <div className="flex gap-2 flex-wrap mt-2">
@@ -71,16 +74,19 @@ export const Card = ({ info }) => {
       {info.designation !== "HOD" && "CEO" && (
         <div className="flex gap-2">
           {info.designation !== "TEAM_LEAD" && (
-            <>
-              <Button variant="primary" className="" onClick={removeHandler}>
-                Remove
-              </Button>
-            </>
+            <Button variant="primary" className="" onClick={removeHandler}>
+              Remove
+            </Button>
           )}
           {info.designation === "TEAM_LEAD" && (
-            <Button variant="primary" className="" onClick={handleViewTeam}>
-              View team
-            </Button>
+            <Sheet>
+              <SheetTrigger>
+                <Button variant="primary" className="" onClick={handleViewTeam}>
+                  View team
+                </Button>
+              </SheetTrigger>
+              <ViewTeamSheet team={teamMember} />
+            </Sheet>
           )}
         </div>
       )}

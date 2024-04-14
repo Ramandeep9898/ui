@@ -12,6 +12,7 @@ import { Filters } from "../components/Filters/Filters";
 import { Sheet, SheetTrigger } from "../components/SideSheet/SideSheet";
 import { FormData } from "../types/Fields.type";
 import Button from "../components/Button/Button";
+import { filterEmployees } from "../utils/datamodelutils";
 
 // Home component
 export const Home = () => {
@@ -24,12 +25,33 @@ export const Home = () => {
     teamId: "",
   };
 
+  const initialFilterState = {
+    name: "",
+    email: "",
+    phoneNumber: "",
+  };
+
   const createTeamInitialState = {
     teamName: "",
   };
 
   const { employeeData, dispatch } = useEmployeeData();
   const [employeeTransformedData, setEmployeeTransformedData] = useState({});
+
+  //filters
+  const [filterInput, setFilterInput] = useState(initialFilterState);
+
+  const handleFilterInput = (key: any, value: any) => {
+    setFilterInput((prevFilterInput) => ({
+      ...prevFilterInput,
+      [key]: value,
+    }));
+  };
+
+  //clear filters
+  const clearFilter = () => {
+    setFilterInput(initialFilterState);
+  };
 
   // handle add/edit new member
   const onSubmitTeamMember = (formData) => {
@@ -42,13 +64,17 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    setEmployeeTransformedData(mapEmployeesByDepartment(employeeData));
-  }, [employeeData]);
+    setEmployeeTransformedData(filterEmployees(filterInput, employeeData));
+  }, [employeeData, filterInput]);
 
   return (
     <main className="flex justify-center items-center flex-wrap gap-3 ">
-      <div className="flex flex-col max-w-[1200px]">
-        <Filters />
+      <div className="flex flex-col w-[1200px]">
+        <Filters
+          filterInput={filterInput}
+          handleFilterInput={handleFilterInput}
+          clearFilter={clearFilter}
+        />
         {Object.keys(employeeTransformedData).map((department) => (
           <div key={department} className="mb-5">
             <div className="flex justify-between mb-3">
@@ -84,8 +110,8 @@ export const Home = () => {
               )}
             </div>
 
-            <div className="flex flex-row gap-2 flex-wrap">
-              {employeeTransformedData[department].map((employee: any) => (
+            <div className="flex flex-row gap-2 flex-wrap ">
+              {employeeTransformedData[department]?.map((employee: any) => (
                 <>
                   {!employee.isDeleted && (
                     <div key={employee.employeeId}>

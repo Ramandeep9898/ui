@@ -25,7 +25,7 @@ const Button = ({
     <button
       id={id}
       className={clsxm(
-        "text-white rounded-full  font-bold flex justify-center items-center gap-2",
+        "text-white rounded-full  font-bold flex justify-center items-center gap-2 whitespace-nowrap",
         {
           "bg-white border text-[#333]": variant === "outline",
           "bg-[#333] rounded-md px-2 py-1": variant === "primary",

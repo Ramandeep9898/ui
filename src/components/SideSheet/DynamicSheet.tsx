@@ -76,26 +76,47 @@ export const DynamicSheet = ({
   };
 
   const submitHandler = () => {
-    // console.log(formData);
-
-    if (
-      formData.name === "" ||
-      formData.phoneNumber === "" ||
-      formData.email === "" ||
-      formData.designation === "" ||
-      formData.teamId === ""
-    ) {
-      console.log(formData);
-
-      toast({
-        title: "All fields are required.",
-      });
-    } else {
-      if (flag === "edit") {
-        dispatch({ ...formData, type: "EDIT_MEMBER" });
+    if (flag === "createTeam") {
+      if (formData.teamName === "") {
+        toast({
+          title: "All fields are required.",
+        });
       } else {
         onSubmit({ formData });
         setFormData(initialState);
+      }
+    }
+
+    if (flag === "addMember") {
+      if (
+        formData.name === "" ||
+        formData.phoneNumber === "" ||
+        formData.email === "" ||
+        formData.designation === "" ||
+        formData.teamId === ""
+      ) {
+        toast({
+          title: "All fields are required.",
+        });
+      } else {
+        onSubmit({ formData });
+        setFormData(initialState);
+      }
+    }
+
+    if (flag === "edit") {
+      if (
+        formData.name === "" ||
+        formData.phoneNumber === "" ||
+        formData.email === "" ||
+        formData.designation === "" ||
+        formData.teamId === ""
+      ) {
+        toast({
+          title: "All fields are required.",
+        });
+      } else {
+        dispatch({ ...formData, type: "EDIT_MEMBER" });
       }
     }
   };
